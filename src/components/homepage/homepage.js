@@ -3,7 +3,7 @@ import React, {Component} from 'react';
 class Homepage extends Component {
     render() {
         return (
-          <h1>homepage</h1>
+          <h1>{this.props.value.name} : {this.props.value.leagueId}</h1>
         );
     }
 }

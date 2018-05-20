@@ -3,10 +3,14 @@ import AppBar from '@material-ui/core/AppBar';
 import Tab from '@material-ui/core/Tab';
 import Tabs from '@material-ui/core/Tabs';
 
-import Homepage from '../homepage/homepage';
-import League from '../league/league';
+import { setLeague } from '../../redux/actions/league';
+import store from '../../redux/store';
 
 const leagueArray = [
+    {
+        name: 'Girpy',
+        leagueId: 0
+    },
     {
         name: 'Bundesliga',
         leagueId: 452
@@ -32,7 +36,12 @@ const leagues = [];
 
 leagueArray.map((league) => {
     leagues.push(
-        <Tab key={league.leagueId} label={league.name} onClick={ () => console.log(league)}></Tab>
+        <Tab key={ league.leagueId }
+             label={ league.name }
+             onClick={ () => {
+                 store.dispatch(setLeague(league))
+             }}
+        />
     )
 });
 
@@ -42,7 +51,6 @@ class Navbar extends Component {
             <div>
                 <AppBar position="static">
                     <Tabs centered>
-                        <Tab label="Girpy" onClick={}></Tab>
                         {leagues}
                     </Tabs>
                 </AppBar>

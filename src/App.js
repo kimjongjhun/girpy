@@ -1,13 +1,18 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import './App.css';
-import Shell from './components/shell/shell';
+import { connect } from 'react-redux';
+import Navbar from './components/navbar/navbar';
+import League from './components/league/league';
 
 class App extends Component {
     render() {
         return (
-                <Shell />
+            <div>
+                <Navbar></Navbar>
+                <League league={this.props.leagueReducer}></League>
+            </div>
         );
     }
 }
 
-export default App;
+export default connect(state => state)(App);
