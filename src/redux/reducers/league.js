@@ -20,7 +20,6 @@ export function leagueReducer(state = initState, action) {
             return state;
 
         case GET_LEAGUE_DATA:
-            console.log('get league data hit', action.payload);
             return Object.assign({}, state, {
                 leagueData: action.payload,
                 pending: false

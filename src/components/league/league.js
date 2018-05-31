@@ -11,8 +11,7 @@ import store from '../../redux/store';
 import {getLeagueTable} from '../../redux/actions/league';
 
 class League extends Component {
-    componentDidUpdate(prevProps) {
-        console.log('component did update', this.props);
+    componentDidUpdate() {
         store.dispatch(getLeagueTable());
 
     }
