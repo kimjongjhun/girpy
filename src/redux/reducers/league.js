@@ -1,4 +1,4 @@
-import {SET_LEAGUE, GET_LEAGUE_TABLE} from '../types/league';
+import { SET_LEAGUE, GET_LEAGUE_TABLE, GET_LEAGUE_DATA, GO_HOME } from '../types/league';
 
 const initState = {
     name: 'Girpy',
@@ -10,29 +10,30 @@ const initState = {
 export function leagueReducer(state = initState, action) {
     switch (action.type) {
         case SET_LEAGUE:
-            return {
-                ...state,
+            return Object.assign({}, state, {
                 name: action.payload.name,
                 leagueId: action.payload.leagueId,
                 pending: true
-            };
+            });
+
         case GET_LEAGUE_TABLE:
-            let leagueData = {};
-            fetch(`http://api.football-data.org/v1/competitions/${action.payload}/leagueTable`, {
-                headers: {
-                    'X-Auth-Token': process.env.REACT_APP_FOOTBALL_DATA_TOKEN
-                }
-            })
-                .then((res) => res.json())
-                .then((data) => {
-                        console.log('data', data);
-                        leagueData = data;
-                        console.log('league data hit 1', leagueData);
-                        return data;
-                    }
-                );
-            console.log('league data hit', leagueData);
             return state;
+
+        case GET_LEAGUE_DATA:
+            console.log('get league data hit', action.payload);
+            return Object.assign({}, state, {
+                leagueData: action.payload,
+                pending: false
+            });
+
+        case GO_HOME:
+            return Object.assign({}, state, {
+                name: 'Girpy',
+                leagueId: 0,
+                pending: false,
+                leagueData: {}
+            });
+
         default:
             return state;
     }

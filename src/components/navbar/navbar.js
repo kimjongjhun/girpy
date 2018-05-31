@@ -3,7 +3,7 @@ import AppBar from '@material-ui/core/AppBar';
 import Tab from '@material-ui/core/Tab';
 import Tabs from '@material-ui/core/Tabs';
 
-import { setLeague } from '../../redux/actions/league';
+import { setLeague, getLeagueData } from '../../redux/actions/league';
 import store from '../../redux/store';
 
 const leagueArray = [
@@ -39,7 +39,8 @@ leagueArray.map((league) => {
         <Tab key={ league.leagueId }
              label={ league.name }
              onClick={ () => {
-                 store.dispatch(setLeague(league))
+                 store.dispatch(setLeague(league));
+                 store.dispatch(getLeagueData());
              }}
         />
     )

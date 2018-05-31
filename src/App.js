@@ -8,7 +8,7 @@ class App extends Component {
     render() {
         return (
             <div>
-                <Navbar></Navbar>
+                <Navbar/>
                 <League league={this.props.leagueReducer}></League>
             </div>
         );
