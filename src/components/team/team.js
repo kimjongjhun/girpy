@@ -1,8 +1,37 @@
 import React, {Component} from 'react';
+import Modal from '@material-ui/core/Modal';
+import Button from '@material-ui/core/Button';
+
+import { openModal, closeModal } from '../../redux/actions/team';
+
+const modalStyle = {
+    top: '50%',
+    left: '50%'
+};
+
+const modalClassName = {
+    position: 'absolute',
+    width: '100px',
+    height: '100px'
+};
 
 class Team extends Component {
     render() {
-        <h1>Team Component</h1>
+        return (
+            <div>
+                <Button onClick={() => {
+                    console.log('team props hit', this.props);
+                    openModal()
+                }}>
+                    Open
+                </Button>
+                <Modal onClose={closeModal()}>
+                    <div style={modalStyle} className={modalClassName}>
+                        <h1>asdkjlaksdjlfasdf</h1>
+                    </div>
+                </Modal>
+            </div>
+        )
     }
 }
 

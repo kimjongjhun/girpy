@@ -8,6 +8,7 @@ const initState = {
 };
 
 export function leagueReducer(state = initState, action) {
+    console.log('league action received ', action);
     switch (action.type) {
         case SET_LEAGUE:
             return Object.assign({}, state, {

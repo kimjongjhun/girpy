@@ -5,18 +5,22 @@ import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import CircularProgress from '@material-ui/core/CircularProgress';
+import Modal from '@material-ui/core/Modal';
 
+import Team from '../team/team';
 import Homepage from '../homepage/homepage';
 import store from '../../redux/store';
-import {getLeagueTable} from '../../redux/actions/league';
+import { getLeagueTable } from '../../redux/actions/league';
 
 class League extends Component {
     componentDidUpdate() {
         store.dispatch(getLeagueTable());
-
+        console.log('this.props hit', this.props);
     }
 
     render() {
+        let modalOpen = false;
+
         let progressStyle = {
             boxSizing: 'border-box',
             position: 'absolute',
@@ -29,7 +33,6 @@ class League extends Component {
         };
 
         let cellStyle = {
-            textAlign: 'left',
             fontWeight: 'bold',
             fontSize: '15px'
         };
@@ -40,23 +43,36 @@ class League extends Component {
             fontSize: '15px'
         };
 
+        let cellStyle2 = {
+            textAlign: 'left'
+        };
+
+        function closeModal() {
+            modalOpen = false;
+        }
+
         if (this.props.league.leagueId > 0) {
             let leagueDataRows = [];
 
             if (this.props.league.leagueData.standing) {
                 this.props.league.leagueData.standing.map((team) => {
                     leagueDataRows.push(
-                        <TableRow hover onClick={() => console.log('row click hit', team)}>
-                            <TableCell numeric>{ team.position }</TableCell>
-                            <TableCell><img src={ team.crestURI } height='30'/> { team.teamName }</TableCell>
-                            <TableCell numeric>{ team.playedGames }</TableCell>
-                            <TableCell numeric>{ team.wins }</TableCell>
-                            <TableCell numeric>{ team.draws }</TableCell>
-                            <TableCell numeric>{ team.losses }</TableCell>
-                            <TableCell numeric>{ team.goals }</TableCell>
-                            <TableCell numeric>{ team.goalsAgainst }</TableCell>
-                            <TableCell numeric>{ team.goalDifference }</TableCell>
-                            <TableCell numeric>{ team.points }</TableCell>
+                        <TableRow hover onClick={() => {
+                            modalOpen = true;
+                            console.log('row click hit', modalOpen);
+                        }}>
+                            <TableCell>{ team.position }</TableCell>
+                            <TableCell style={cellStyle2}>
+                                <img src={ team.crestURI } height='30'/> { team.teamName }
+                            </TableCell>
+                            <TableCell>{ team.playedGames }</TableCell>
+                            <TableCell>{ team.wins }</TableCell>
+                            <TableCell>{ team.draws }</TableCell>
+                            <TableCell>{ team.losses }</TableCell>
+                            <TableCell>{ team.goals }</TableCell>
+                            <TableCell>{ team.goalsAgainst }</TableCell>
+                            <TableCell>{ team.goalDifference }</TableCell>
+                            <TableCell>{ team.points }</TableCell>
                         </TableRow>
                     )
                 });
@@ -65,9 +81,10 @@ class League extends Component {
             return (
                 <div>
                     {this.props.league.pending ?
-                        (<CircularProgress style={progressStyle} />) :
+                        (<CircularProgress style={progressStyle}/>) :
                         (<div>
                             <h1>{this.props.league.name}</h1>
+                            <Team team={this.props.team}/>
                             <Table>
                                 <TableHead>
                                     <TableRow>

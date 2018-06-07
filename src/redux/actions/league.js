@@ -1,5 +1,5 @@
-import { SET_LEAGUE, GET_LEAGUE_TABLE, GET_LEAGUE_DATA, GO_HOME } from '../types/league';
 import store from '../store';
+import { SET_LEAGUE, GET_LEAGUE_TABLE, GET_LEAGUE_DATA, GO_HOME } from '../types/league';
 
 export const setLeague = (league) => {
     return dispatch => {
@@ -37,11 +37,10 @@ export const getLeagueData = () => {
     }
 };
 
-export const getLeagueTable = (leagueId) => {
+export const getLeagueTable = () => {
     return dispatch => {
         dispatch({
-            type: GET_LEAGUE_TABLE,
-            payload: leagueId
+            type: GET_LEAGUE_TABLE
         })
     }
 };
