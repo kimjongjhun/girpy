@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import Modal from '@material-ui/core/Modal';
 import Button from '@material-ui/core/Button';
 
+import store from '../../redux/store';
 import { openModal, closeModal } from '../../redux/actions/team';
 
 const modalStyle = {
@@ -21,7 +22,7 @@ class Team extends Component {
             <div>
                 <Button onClick={() => {
                     console.log('team props hit', this.props);
-                    openModal()
+                    store.dispatch(openModal());
                 }}>
                     Open
                 </Button>
