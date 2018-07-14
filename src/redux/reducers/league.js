@@ -20,8 +20,6 @@ export function leagueReducer(state = initState, action) {
             return state;
 
         case GET_LEAGUE_DATA:
-            console.log('v2 get league data hit', action.payload);
-
             action.payload.standings[0].table.map((team) => {
                 team.id = team.id;
             });

@@ -8,7 +8,6 @@ export const openModal = (id) => {
     })
         .then((res) => res.json())
         .then((data) => {
-            console.log('v2 openmodal hit', data);
             dispatch({
                 type: OPEN_MODAL,
                 payload: {
@@ -27,7 +26,6 @@ export const getTeamFixtures = (id) => {
     })
         .then((res) => res.json())
         .then((data) => {
-            console.log('fixtures actions hit', data);
             dispatch({
                 type: GET_TEAM_FIXTURES,
                 payload: {
@@ -69,7 +67,6 @@ export const closeModal = () => {
 };
 
 export const setTeamTab = (value) => {
-    console.log('set team tab hit', value);
     return dispatch => {
         dispatch({
             type: SET_TEAM_TAB,

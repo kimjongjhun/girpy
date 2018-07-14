@@ -23,7 +23,6 @@ export const getLeagueData = () => {
         })
             .then((res) => res.json())
             .then((data) => {
-                console.log('v2 data hit', data);
                 dispatch({
                     type: GET_LEAGUE_DATA,
                     payload: data

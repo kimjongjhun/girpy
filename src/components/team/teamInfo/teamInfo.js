@@ -26,8 +26,6 @@ const styles = theme => ({
 
 class TeamInfo extends Component {
     render() {
-        console.log('v2 teaminfo render hit', this.props);
-
         const {classes} = this.props;
 
         const cellHeaderStyle = {

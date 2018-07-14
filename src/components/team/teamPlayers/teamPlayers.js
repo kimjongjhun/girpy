@@ -26,7 +26,6 @@ let players = {
 };
 
 const sortPlayers = (value) => {
-    console.log('v2 sorting players hit', value);
     let coach = [];
     players = {
         keepers: [],

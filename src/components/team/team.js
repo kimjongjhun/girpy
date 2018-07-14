@@ -28,8 +28,6 @@ const tabClick = (event, value) => {
 
 class Team extends Component {
     render() {
-        console.log('v2 team render', this.props);
-
         const {classes} = this.props;
 
         return (

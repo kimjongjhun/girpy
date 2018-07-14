@@ -21,7 +21,7 @@ class TeamLogo extends Component {
                     </Grid>
                     <br/>
                     <Grid container item justify={'center'}>
-                        <h2 onClick={() => console.log('h2', this.props)}>{this.props.team.name}</h2>
+                        <h2>{this.props.team.name}</h2>
                     </Grid>
                 </Paper>
             </Grid>
