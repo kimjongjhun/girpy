@@ -20,6 +20,10 @@ export function leagueReducer(state = initState, action) {
             return state;
 
         case GET_LEAGUE_DATA:
+            action.payload.standings[0].table.map((team) => {
+                team.id = team.id;
+            });
+
             return Object.assign({}, state, {
                 leagueData: action.payload,
                 pending: false

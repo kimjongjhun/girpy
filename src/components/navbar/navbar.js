@@ -13,23 +13,23 @@ const leagueArray = [
     },
     {
         name: 'Bundesliga',
-        leagueId: 452
+        leagueId: 2002
     },
     {
         name: 'La Liga',
-        leagueId: 455
+        leagueId: 2014
     },
     {
         name: 'Ligue 1',
-        leagueId: 450
+        leagueId: 2015
     },
     {
         name: 'Premier League',
-        leagueId: 445
+        leagueId: 2021
     },
     {
         name: 'Serie A',
-        leagueId: 456
+        leagueId: 2019
     },
 ];
 const leagues = [];

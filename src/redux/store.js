@@ -1,14 +1,16 @@
 import { createStore, combineReducers, applyMiddleware } from 'redux';
 import { leagueReducer } from './reducers/league';
+import { teamReducer } from './reducers/team';
 import logger from 'redux-logger';
 import thunk from 'redux-thunk';
 
-const reducer = combineReducers({
-    leagueReducer
+const reducers = combineReducers({
+    leagueReducer,
+    teamReducer
 });
 
 const store = createStore(
-    reducer,
+    reducers,
     {},
     applyMiddleware(thunk, logger)
 );
