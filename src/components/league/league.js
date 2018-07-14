@@ -75,7 +75,6 @@ class League extends Component {
         };
 
         if (this.props.league.leagueId > 0) {
-            console.log('v2 league data hit', this.props);
             let leagueDataRows = [];
 
             if (this.props.league.leagueData.standings) {
@@ -83,7 +82,6 @@ class League extends Component {
                     leagueDataRows.push(
                         <TableRow hover onClick={() => {
                             selectedTeamIndex = this.props.league.leagueData.standings[0].table.indexOf(team);
-                            console.log('v2 team hit', team);
                             this.openModal(team)
                         }}>
                             <TableCell style={cellBodyStyle}>{team.position}</TableCell>
@@ -127,7 +125,7 @@ class League extends Component {
                             </Modal>
                             <Table>
                                 <TableHead>
-                                    <TableRow onClick={() => console.log('row click', this.props)}>
+                                    <TableRow>
                                       <TableCell><Typography variant='header'>Position</Typography></TableCell>
                                       <TableCell><Typography variant='header'>Team</Typography></TableCell>
                                       <TableCell><Typography variant='header'>GP</Typography></TableCell>
