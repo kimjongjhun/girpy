@@ -8,7 +8,6 @@ const initState = {
 };
 
 export function leagueReducer(state = initState, action) {
-    console.log('league action received ', action);
     switch (action.type) {
         case SET_LEAGUE:
             return Object.assign({}, state, {
@@ -21,6 +20,12 @@ export function leagueReducer(state = initState, action) {
             return state;
 
         case GET_LEAGUE_DATA:
+            console.log('v2 get league data hit', action.payload);
+
+            action.payload.standings[0].table.map((team) => {
+                team.id = team.id;
+            });
+
             return Object.assign({}, state, {
                 leagueData: action.payload,
                 pending: false

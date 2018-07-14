@@ -16,13 +16,14 @@ export const setLeague = (league) => {
 export const getLeagueData = () => {
     let leagueId = store.getState().leagueReducer.leagueId;
     if (leagueId > 0) {
-        return dispatch => fetch(`http://api.football-data.org/v1/competitions/${leagueId}/leagueTable`, {
+        return dispatch => fetch(`http://api.football-data.org/v2/competitions/${leagueId}/standings`, {
             headers: {
                 'X-Auth-Token': process.env.REACT_APP_FOOTBALL_DATA_TOKEN
             }
         })
             .then((res) => res.json())
             .then((data) => {
+                console.log('v2 data hit', data);
                 dispatch({
                     type: GET_LEAGUE_DATA,
                     payload: data
