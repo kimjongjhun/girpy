@@ -7,7 +7,8 @@ export const setLeague = (league) => {
             type: SET_LEAGUE,
             payload: {
                 name: league.name,
-                leagueId: league.leagueId
+                leagueId: league.leagueId,
+                img: league.img
             }
         })
     }
