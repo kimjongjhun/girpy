@@ -4,7 +4,8 @@ const initState = {
     name: 'Girpy',
     leagueId: 0,
     pending: false,
-    leagueData: {}
+    leagueData: {},
+    img: null
 };
 
 export function leagueReducer(state = initState, action) {
@@ -13,6 +14,7 @@ export function leagueReducer(state = initState, action) {
             return Object.assign({}, state, {
                 name: action.payload.name,
                 leagueId: action.payload.leagueId,
+                img: action.payload.img,
                 pending: true
             });
 

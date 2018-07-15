@@ -27,6 +27,10 @@ const styles = theme => ({
         padding: theme.spacing.unit * 2,
         overflow: 'auto',
     },
+    root: {
+        flexGrow: 1,
+        padding: theme.spacing.unit,
+    }
 });
 
 const modalStyle = {
@@ -113,9 +117,16 @@ class League extends Component {
                     {this.props.league.pending ?
                         (<CircularProgress style={progressStyle}/>) :
                         (<div>
-                            <h1 align="center">{this.props.league.name}</h1>
-                            <Modal open={this.props.team.modalOpen && this.props.team.fixturesOpen && this.props.team.playersOpen}
-                                   onClose={this.closeModal}
+                            <Paper className={classes.root}>
+                                <Grid container>
+                                    <Grid item xs={12} align={'center'}>
+                                        <img height={150} src={this.props.league.img}/>
+                                    </Grid>
+                                </Grid>
+                            </Paper>
+                            <Modal
+                                open={this.props.team.modalOpen && this.props.team.fixturesOpen && this.props.team.playersOpen}
+                                onClose={this.closeModal}
                             >
                                 <Paper className={classes.paper}
                                        style={modalStyle}
@@ -126,16 +137,16 @@ class League extends Component {
                             <Table>
                                 <TableHead>
                                     <TableRow>
-                                      <TableCell><Typography variant='header'>Position</Typography></TableCell>
-                                      <TableCell><Typography variant='header'>Team</Typography></TableCell>
-                                      <TableCell><Typography variant='header'>GP</Typography></TableCell>
-                                      <TableCell><Typography variant='header'>W</Typography></TableCell>
-                                      <TableCell><Typography variant='header'>D</Typography></TableCell>
-                                      <TableCell><Typography variant='header'>L</Typography></TableCell>
-                                      <TableCell><Typography variant='header'>GF</Typography></TableCell>
-                                      <TableCell><Typography variant='header'>GA</Typography></TableCell>
-                                      <TableCell><Typography variant='header'>GD</Typography></TableCell>
-                                      <TableCell><Typography variant='header'>Points</Typography></TableCell>
+                                        <TableCell><Typography variant='header'>Position</Typography></TableCell>
+                                        <TableCell><Typography variant='header'>Team</Typography></TableCell>
+                                        <TableCell><Typography variant='header'>GP</Typography></TableCell>
+                                        <TableCell><Typography variant='header'>W</Typography></TableCell>
+                                        <TableCell><Typography variant='header'>D</Typography></TableCell>
+                                        <TableCell><Typography variant='header'>L</Typography></TableCell>
+                                        <TableCell><Typography variant='header'>GF</Typography></TableCell>
+                                        <TableCell><Typography variant='header'>GA</Typography></TableCell>
+                                        <TableCell><Typography variant='header'>GD</Typography></TableCell>
+                                        <TableCell><Typography variant='header'>Points</Typography></TableCell>
                                     </TableRow>
                                 </TableHead>
                                 <TableBody>
