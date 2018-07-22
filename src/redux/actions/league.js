@@ -1,5 +1,5 @@
-import { SET_LEAGUE, GET_LEAGUE_TABLE, GET_LEAGUE_DATA, GO_HOME } from '../types/league';
 import store from '../store';
+import { SET_LEAGUE, GET_LEAGUE_TABLE, GET_LEAGUE_DATA, GO_HOME } from '../types/league';
 
 export const setLeague = (league) => {
     return dispatch => {
@@ -7,7 +7,8 @@ export const setLeague = (league) => {
             type: SET_LEAGUE,
             payload: {
                 name: league.name,
-                leagueId: league.leagueId
+                leagueId: league.leagueId,
+                img: league.img
             }
         })
     }
@@ -16,7 +17,7 @@ export const setLeague = (league) => {
 export const getLeagueData = () => {
     let leagueId = store.getState().leagueReducer.leagueId;
     if (leagueId > 0) {
-        return dispatch => fetch(`http://api.football-data.org/v1/competitions/${leagueId}/leagueTable`, {
+        return dispatch => fetch(`http://api.football-data.org/v2/competitions/${leagueId}/standings`, {
             headers: {
                 'X-Auth-Token': process.env.REACT_APP_FOOTBALL_DATA_TOKEN
             }
@@ -37,11 +38,10 @@ export const getLeagueData = () => {
     }
 };
 
-export const getLeagueTable = (leagueId) => {
+export const getLeagueTable = () => {
     return dispatch => {
         dispatch({
-            type: GET_LEAGUE_TABLE,
-            payload: leagueId
+            type: GET_LEAGUE_TABLE
         })
     }
 };

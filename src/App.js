@@ -9,7 +9,7 @@ class App extends Component {
         return (
             <div>
                 <Navbar/>
-                <League league={this.props.leagueReducer}></League>
+                <League league={this.props.leagueReducer} team={this.props.teamReducer} />
             </div>
         );
     }

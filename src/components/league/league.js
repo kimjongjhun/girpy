@@ -5,19 +5,61 @@ import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import CircularProgress from '@material-ui/core/CircularProgress';
+import Modal from '@material-ui/core/Modal';
+import {withStyles} from '@material-ui/core/styles';
+import Paper from '@material-ui/core/Paper';
+import Grid from '@material-ui/core/Grid';
+import Typography from '@material-ui/core/Typography';
 
+import Team from '../team/team';
 import Homepage from '../homepage/homepage';
 import store from '../../redux/store';
 import {getLeagueTable} from '../../redux/actions/league';
+import {openModal, closeModal, getTeamFixtures, getTeamPlayers} from '../../redux/actions/team';
+
+const styles = theme => ({
+    paper: {
+        position: 'absolute',
+        height: theme.spacing.unit * 100,
+        width: theme.spacing.unit * 200,
+        backgroundColor: theme.palette.background.paper,
+        boxShadow: theme.shadows[5],
+        padding: theme.spacing.unit * 2,
+        overflow: 'auto',
+    },
+    root: {
+        flexGrow: 1,
+        padding: theme.spacing.unit,
+    }
+});
+
+const modalStyle = {
+    top: '50%',
+    left: '50%',
+    transform: 'translate(-50%, -50%)',
+};
+
+let selectedTeamIndex = '';
 
 class League extends Component {
     componentDidUpdate() {
         store.dispatch(getLeagueTable());
-
     }
 
+    openModal = (team) => {
+        store.dispatch(getTeamFixtures(team.team.id));
+        store.dispatch(getTeamPlayers(team.team.id));
+        store.dispatch(openModal(team.team.id));
+    };
+
+    closeModal = () => {
+        store.dispatch(closeModal());
+    };
+
     render() {
-        let progressStyle = {
+        const {classes} = this.props;
+
+        const progressStyle = {
             boxSizing: 'border-box',
             position: 'absolute',
             top: '50%',
@@ -28,35 +70,43 @@ class League extends Component {
             marginLeft: '-50px'
         };
 
-        let cellStyle = {
-            textAlign: 'left',
-            fontWeight: 'bold',
-            fontSize: '15px'
+        const cellBodyStyle = {
+            textAlign: 'center'
         };
 
-        let cellStyle1 = {
-            textAlign: 'center',
-            fontWeight: 'bold',
-            fontSize: '15px'
+        const cellBodyStyle1 = {
+            textAlign: 'left'
         };
 
         if (this.props.league.leagueId > 0) {
             let leagueDataRows = [];
 
-            if (this.props.league.leagueData.standing) {
-                this.props.league.leagueData.standing.map((team) => {
+            if (this.props.league.leagueData.standings) {
+                this.props.league.leagueData.standings[0].table.map((team) => {
                     leagueDataRows.push(
-                        <TableRow hover onClick={() => console.log('row click hit', team)}>
-                            <TableCell numeric>{ team.position }</TableCell>
-                            <TableCell><img src={ team.crestURI } height='30'/> { team.teamName }</TableCell>
-                            <TableCell numeric>{ team.playedGames }</TableCell>
-                            <TableCell numeric>{ team.wins }</TableCell>
-                            <TableCell numeric>{ team.draws }</TableCell>
-                            <TableCell numeric>{ team.losses }</TableCell>
-                            <TableCell numeric>{ team.goals }</TableCell>
-                            <TableCell numeric>{ team.goalsAgainst }</TableCell>
-                            <TableCell numeric>{ team.goalDifference }</TableCell>
-                            <TableCell numeric>{ team.points }</TableCell>
+                        <TableRow hover onClick={() => {
+                            selectedTeamIndex = this.props.league.leagueData.standings[0].table.indexOf(team);
+                            this.openModal(team)
+                        }}>
+                            <TableCell style={cellBodyStyle}>{team.position}</TableCell>
+                            <TableCell style={cellBodyStyle1}>
+                                <Grid container>
+                                    <Grid container item xs={4} justify={'center'}>
+                                        <img src={team.team.crestURI} height='50'/>
+                                    </Grid>
+                                    <Grid item xs={8}>
+                                        {team.team.name}
+                                    </Grid>
+                                </Grid>
+                            </TableCell>
+                            <TableCell style={cellBodyStyle}>{team.playedGames}</TableCell>
+                            <TableCell style={cellBodyStyle}>{team.won}</TableCell>
+                            <TableCell style={cellBodyStyle}>{team.draw}</TableCell>
+                            <TableCell style={cellBodyStyle}>{team.lost}</TableCell>
+                            <TableCell style={cellBodyStyle}>{team.goalsFor}</TableCell>
+                            <TableCell style={cellBodyStyle}>{team.goalsAgainst}</TableCell>
+                            <TableCell style={cellBodyStyle}>{team.goalDifference}</TableCell>
+                            <TableCell style={cellBodyStyle}>{team.points}</TableCell>
                         </TableRow>
                     )
                 });
@@ -65,22 +115,38 @@ class League extends Component {
             return (
                 <div>
                     {this.props.league.pending ?
-                        (<CircularProgress style={progressStyle} />) :
+                        (<CircularProgress style={progressStyle}/>) :
                         (<div>
-                            <h1>{this.props.league.name}</h1>
+                            <Paper className={classes.root}>
+                                <Grid container>
+                                    <Grid item xs={12} align={'center'}>
+                                        <img height={150} src={this.props.league.img}/>
+                                    </Grid>
+                                </Grid>
+                            </Paper>
+                            <Modal
+                                open={this.props.team.modalOpen && this.props.team.fixturesOpen && this.props.team.playersOpen}
+                                onClose={this.closeModal}
+                            >
+                                <Paper className={classes.paper}
+                                       style={modalStyle}
+                                >
+                                    <Team team={this.props.team} league={this.props.league} index={selectedTeamIndex}/>
+                                </Paper>
+                            </Modal>
                             <Table>
                                 <TableHead>
                                     <TableRow>
-                                        <TableCell style={cellStyle}>Position</TableCell>
-                                        <TableCell style={cellStyle1}>Team</TableCell>
-                                        <TableCell style={cellStyle}>GP</TableCell>
-                                        <TableCell style={cellStyle}>W</TableCell>
-                                        <TableCell style={cellStyle}>D</TableCell>
-                                        <TableCell style={cellStyle}>L</TableCell>
-                                        <TableCell style={cellStyle}>GF</TableCell>
-                                        <TableCell style={cellStyle}>GA</TableCell>
-                                        <TableCell style={cellStyle}>GD</TableCell>
-                                        <TableCell style={cellStyle}>Points</TableCell>
+                                        <TableCell><Typography variant='header'>Position</Typography></TableCell>
+                                        <TableCell><Typography variant='header'>Team</Typography></TableCell>
+                                        <TableCell><Typography variant='header'>GP</Typography></TableCell>
+                                        <TableCell><Typography variant='header'>W</Typography></TableCell>
+                                        <TableCell><Typography variant='header'>D</Typography></TableCell>
+                                        <TableCell><Typography variant='header'>L</Typography></TableCell>
+                                        <TableCell><Typography variant='header'>GF</Typography></TableCell>
+                                        <TableCell><Typography variant='header'>GA</Typography></TableCell>
+                                        <TableCell><Typography variant='header'>GD</Typography></TableCell>
+                                        <TableCell><Typography variant='header'>Points</Typography></TableCell>
                                     </TableRow>
                                 </TableHead>
                                 <TableBody>
@@ -99,4 +165,4 @@ class League extends Component {
     }
 }
 
-export default League;
+export default withStyles(styles)(League);
