@@ -11,33 +11,51 @@ import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import Typography from '@material-ui/core/Typography';
 
+import TableColumn from '../../../common/components/tableColumn/tableColumn';
+
 const styles = theme => ({
     root: {
         flexGrow: 1,
         padding: theme.spacing.unit,
     },
     gridItem: {
-        padding: theme.spacing.unit
+        padding: theme.spacing.unit,
     },
     paper: {
         padding: theme.spacing.unit,
-    }
+    },
 });
 
 class TeamInfo extends Component {
     render() {
         const {classes} = this.props;
 
-        const cellHeaderStyle = {
-            textAlign: 'center',
-            fontWeight: 'bold',
-        };
-
-        const cellBodyStyle = {
-            textAlign: 'center'
-        };
-
         const teamInfo = () => {
+            const columns = [
+                {
+                    head: 'Position',
+                    body: this.props.league[this.props.index].position
+                },
+                {
+                    head: 'Games Played',
+                    body: this.props.league[this.props.index].playedGames
+                },
+                {
+                    head: 'Points',
+                    body: this.props.league[this.props.index].points
+                }
+            ];
+
+            const displayColumns = [];
+
+            columns.map((column) => {
+                displayColumns.push(
+                    <Grid item xs={4}>
+                        <TableColumn columnData={column}/>
+                    </Grid>
+                )
+            });
+
             return (
                 <ListItem divider>
                     <Grid container>
@@ -47,34 +65,41 @@ class TeamInfo extends Component {
                             </Typography>
                         </Grid>
                         <Grid item xs={9}>
-                            <Table>
-                                <TableHead>
-                                    <TableRow>
-                                        <TableCell style={cellHeaderStyle}>Position</TableCell>
-                                        <TableCell style={cellHeaderStyle}>Games Played</TableCell>
-                                        <TableCell style={cellHeaderStyle}>Points</TableCell>
-                                    </TableRow>
-                                </TableHead>
-                                <TableBody>
-                                    <TableRow>
-                                        <TableCell style={cellBodyStyle}>
-                                            {this.props.league[this.props.index].position}
-                                        </TableCell>
-                                        <TableCell style={cellBodyStyle}>
-                                            {this.props.league[this.props.index].playedGames}
-                                        </TableCell>
-                                        <TableCell style={cellBodyStyle}>
-                                            {this.props.league[this.props.index].points}
-                                        </TableCell>
-                                    </TableRow>
-                                </TableBody>
-                            </Table>
+                            <Grid container>
+                                {displayColumns}
+                            </Grid>
                         </Grid>
                     </Grid>
                 </ListItem>
             )
         };
+
         const teamRecord = () => {
+            const columns = [
+                {
+                    head: 'Wins',
+                    body: this.props.league[this.props.index].won
+                },
+                {
+                    head: 'Draws',
+                    body: this.props.league[this.props.index].draw
+                },
+                {
+                    head: 'Losses',
+                    body: this.props.league[this.props.index].lost
+                }
+            ];
+
+            const displayColumns = [];
+
+            columns.map((column) => {
+                displayColumns.push(
+                    <Grid item xs={4}>
+                        <TableColumn columnData={column}/>
+                    </Grid>
+                )
+            });
+
             return (
                 <ListItem divider>
                     <Grid container>
@@ -84,34 +109,41 @@ class TeamInfo extends Component {
                             </Typography>
                         </Grid>
                         <Grid item xs={9}>
-                            <Table>
-                                <TableHead>
-                                    <TableRow>
-                                        <TableCell style={cellHeaderStyle}>Wins</TableCell>
-                                        <TableCell style={cellHeaderStyle}>Draws</TableCell>
-                                        <TableCell style={cellHeaderStyle}>Losses</TableCell>
-                                    </TableRow>
-                                </TableHead>
-                                <TableBody>
-                                    <TableRow>
-                                        <TableCell style={cellBodyStyle}>
-                                            {this.props.league[this.props.index].won}
-                                        </TableCell>
-                                        <TableCell style={cellBodyStyle}>
-                                            {this.props.league[this.props.index].draw}
-                                        </TableCell>
-                                        <TableCell style={cellBodyStyle}>
-                                            {this.props.league[this.props.index].lost}
-                                        </TableCell>
-                                    </TableRow>
-                                </TableBody>
-                            </Table>
+                            <Grid container>
+                                {displayColumns}
+                            </Grid>
                         </Grid>
                     </Grid>
                 </ListItem>
             )
         };
+
         const teamGoals = () => {
+            const columns = [
+                {
+                    head: 'Goals For',
+                    body: this.props.league[this.props.index].goalsFor
+                },
+                {
+                    head: 'Goals Against',
+                    body: this.props.league[this.props.index].goalsAgainst
+                },
+                {
+                    head: 'Goal Differential',
+                    body: this.props.league[this.props.index].goalDifference
+                }
+            ];
+
+            const displayColumns = [];
+
+            columns.map((column) => {
+                displayColumns.push(
+                    <Grid item xs={4}>
+                        <TableColumn columnData={column}/>
+                    </Grid>
+                )
+            });
+
             return (
                 <ListItem>
                     <Grid container>
@@ -121,28 +153,9 @@ class TeamInfo extends Component {
                             </Typography>
                         </Grid>
                         <Grid item xs={9}>
-                            <Table>
-                                <TableHead>
-                                    <TableRow>
-                                        <TableCell style={cellHeaderStyle}>Goals For</TableCell>
-                                        <TableCell style={cellHeaderStyle}>Goals Against</TableCell>
-                                        <TableCell style={cellHeaderStyle}>Goal Differential</TableCell>
-                                    </TableRow>
-                                </TableHead>
-                                <TableBody>
-                                    <TableRow>
-                                        <TableCell style={cellBodyStyle}>
-                                            {this.props.league[this.props.index].goalsFor}
-                                        </TableCell>
-                                        <TableCell style={cellBodyStyle}>
-                                            {this.props.league[this.props.index].goalsAgainst}
-                                        </TableCell>
-                                        <TableCell style={cellBodyStyle}>
-                                            {this.props.league[this.props.index].goalDifference}
-                                        </TableCell>
-                                    </TableRow>
-                                </TableBody>
-                            </Table>
+                            <Grid container>
+                                {displayColumns}
+                            </Grid>
                         </Grid>
                     </Grid>
                 </ListItem>
