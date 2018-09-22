@@ -33,10 +33,10 @@ class Team extends Component {
         return (
             <div>
                 <Grid container className={classes.root} spacing={16}>
-                    <Grid item xs={4}>
+                    <Grid item xs={3}>
                         <TeamLogo team={this.props.team.teamBaseInfo}/>
                     </Grid>
-                    <Grid item xs={8}>
+                    <Grid item xs={9}>
                         <Paper>
                             <AppBar position='static'>
                                 <Tabs centered

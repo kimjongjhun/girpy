@@ -1,7 +1,7 @@
-import { OPEN_MODAL, CLOSE_MODAL, GET_TEAM_FIXTURES, GET_TEAM_PLAYERS, SET_TEAM_TAB, RESET_TEAM_TAB } from '../types/team';
+import { OPEN_MODAL, CLOSE_MODAL, GET_TEAM_MATCHES, GET_TEAM_PLAYERS, SET_TEAM_TAB, RESET_TEAM_TAB } from '../types/team';
 
 export const openModal = (id) => {
-    return dispatch => fetch (`http://api.football-data.org/v2/teams/${id}`, {
+    return dispatch => fetch(`http://api.football-data.org/v2/teams/${id}`, {
         headers: {
             'X-Auth-Token': process.env.REACT_APP_FOOTBALL_DATA_TOKEN
         }
@@ -27,7 +27,7 @@ export const getTeamFixtures = (id) => {
         .then((res) => res.json())
         .then((data) => {
             dispatch({
-                type: GET_TEAM_FIXTURES,
+                type: GET_TEAM_MATCHES,
                 payload: {
                     data: data,
                     modalOpen: true

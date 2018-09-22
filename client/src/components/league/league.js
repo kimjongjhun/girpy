@@ -92,7 +92,7 @@ class League extends Component {
                             <TableCell style={cellBodyStyle1}>
                                 <Grid container>
                                     <Grid container item xs={4} justify={'center'}>
-                                        <img src={team.team.crestURI} height='50'/>
+                                        <img src={team.team.crestUrl} height='50'/>
                                     </Grid>
                                     <Grid item xs={8}>
                                         {team.team.name}
@@ -137,16 +137,16 @@ class League extends Component {
                             <Table>
                                 <TableHead>
                                     <TableRow>
-                                        <TableCell><Typography variant='header'>Position</Typography></TableCell>
-                                        <TableCell><Typography variant='header'>Team</Typography></TableCell>
-                                        <TableCell><Typography variant='header'>GP</Typography></TableCell>
-                                        <TableCell><Typography variant='header'>W</Typography></TableCell>
-                                        <TableCell><Typography variant='header'>D</Typography></TableCell>
-                                        <TableCell><Typography variant='header'>L</Typography></TableCell>
-                                        <TableCell><Typography variant='header'>GF</Typography></TableCell>
-                                        <TableCell><Typography variant='header'>GA</Typography></TableCell>
-                                        <TableCell><Typography variant='header'>GD</Typography></TableCell>
-                                        <TableCell><Typography variant='header'>Points</Typography></TableCell>
+                                        <TableCell><Typography variant='subheading'>Position</Typography></TableCell>
+                                        <TableCell><Typography variant='subheading'>Team</Typography></TableCell>
+                                        <TableCell><Typography variant='subheading'>GP</Typography></TableCell>
+                                        <TableCell><Typography variant='subheading'>W</Typography></TableCell>
+                                        <TableCell><Typography variant='subheading'>D</Typography></TableCell>
+                                        <TableCell><Typography variant='subheading'>L</Typography></TableCell>
+                                        <TableCell><Typography variant='subheading'>GF</Typography></TableCell>
+                                        <TableCell><Typography variant='subheading'>GA</Typography></TableCell>
+                                        <TableCell><Typography variant='subheading'>GD</Typography></TableCell>
+                                        <TableCell><Typography variant='subheading'>Points</Typography></TableCell>
                                     </TableRow>
                                 </TableHead>
                                 <TableBody>

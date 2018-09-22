@@ -1,24 +1,33 @@
 {
   "name": "girpy",
-  "version": "0.1.0",
-  "private": true,
-  "dependencies": {
-    "@material-ui/core": "^1.0.0",
-    "react": "^16.3.2",
-    "react-dom": "^16.3.2",
-    "react-redux": "^5.0.7",
-    "react-router": "^4.2.0",
-    "react-router-dom": "^4.2.2",
-    "react-scripts": "1.1.4",
-    "redux": "^4.0.0",
-    "redux-logger": "^3.0.6",
-    "redux-thunk": "^2.2.0",
-    "whatwg-fetch": "^2.0.4"
-  },
+  "version": "1.0.0",
+  "description": "Express side of girpy",
+  "main": "server.js",
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test --env=jsdom",
-    "eject": "react-scripts eject"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "server": "nodemon server.js",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kimjongjhun/girpy.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/kimjongjhun/girpy/issues"
+  },
+  "homepage": "https://github.com/kimjongjhun/girpy#readme",
+  "dependencies": {
+    "axios": "^0.18.0",
+    "body-parser": "^1.18.3",
+    "concurrently": "^3.6.1",
+    "express": "^4.16.3",
+    "fs": "^0.0.1-security",
+    "mongoose": "^5.2.8",
+    "node-cron": "^1.2.1",
+    "node-fetch": "^2.2.0",
+    "nodemon": "^1.18.3",
+    "path": "^0.12.7"
   }
 }

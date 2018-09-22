@@ -57,7 +57,7 @@ class TeamLogo extends Component {
                         </Grid>
                     </Grid>
                     <Grid container item justify={'center'} xs={12}>
-                        <Button href={this.props.team.website}>Go to Website</Button>
+                        <Button variant="contained" color="primary" href={this.props.team.website}>Go to Website</Button>
                     </Grid>
                 </Paper>
             </Grid>

@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import './App.css';
 import { connect } from 'react-redux';
 import Navbar from './components/navbar/navbar';
 import League from './components/league/league';

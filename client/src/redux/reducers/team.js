@@ -1,4 +1,4 @@
-import { OPEN_MODAL, CLOSE_MODAL, GET_TEAM_FIXTURES, GET_TEAM_PLAYERS, SET_TEAM_TAB } from '../types/team';
+import { OPEN_MODAL, CLOSE_MODAL, GET_TEAM_MATCHES, GET_TEAM_PLAYERS, SET_TEAM_TAB } from '../types/team';
 
 const initState = {
     teamTab: 0,
@@ -24,7 +24,7 @@ export function teamReducer(state = initState, action) {
                 teamTab: action.payload.teamTab
             });
 
-        case GET_TEAM_FIXTURES:
+        case GET_TEAM_MATCHES:
             return Object.assign({}, state, {
                 fixturesOpen: action.payload.modalOpen,
                 teamFixturesInfo: action.payload.data
