@@ -39,16 +39,14 @@ class TeamFixtures extends Component {
     console.log('this.props cons', this.props);
 
     this.state = {
-      page: 0,
-      rowsPerPage: 5,
-      count: {
-        finished: 0,
-        scheduled: 0,
-      },
-      matches: {
-        finished: [],
-        scheduled: [],
-      },
+      scheduledRowsPerPage: 5,
+      scheduledPage: 0,
+      scheduledCount: 0,
+      scheduledMatches: [],
+      finishedRowsPerPage: 5,
+      finishedPage: 0,
+      finishedCount: 0,
+      finishedMatches: [],
     };
   };
 
@@ -69,8 +67,9 @@ class TeamFixtures extends Component {
       switch (match.status) {
         case 'SCHEDULED': {
           const scheduledRow = (
-            <TableRow key={match.id}>
-              <TableCell><Typography align="justify"><Moment format="ddd DD/MM/YY HH:mm">{ match.utcDate }</Moment></Typography></TableCell>
+            <TableRow key={ match.id }>
+              <TableCell><Typography align="justify"><Moment
+                format="ddd DD/MM/YY HH:mm">{ match.utcDate }</Moment></Typography></TableCell>
               <TableCell><Typography align="justify">{ match.homeTeam.name }</Typography></TableCell>
               <TableCell><Typography align="justify">{ }</Typography></TableCell>
               <TableCell><Typography align="justify">{ ':' }</Typography></TableCell>
@@ -85,8 +84,9 @@ class TeamFixtures extends Component {
 
         case 'FINISHED': {
           const finishedRow = (
-            <TableRow key={match.id}>
-              <TableCell><Typography align="justify"><Moment format="ddd DD/MM/YY HH:mm">{ match.utcDate }</Moment></Typography></TableCell>
+            <TableRow key={ match.id }>
+              <TableCell><Typography align="justify"><Moment
+                format="ddd DD/MM/YY HH:mm">{ match.utcDate }</Moment></Typography></TableCell>
               <TableCell><Typography align="justify">{ match.homeTeam.name }</Typography></TableCell>
               <TableCell><Typography align="justify">{ match.score.fullTime.homeTeam }</Typography></TableCell>
               <TableCell><Typography align="justify">{ ':' }</Typography></TableCell>
@@ -96,6 +96,7 @@ class TeamFixtures extends Component {
           );
 
           finishedArray.push(finishedRow);
+          finishedArray.reverse();
           break;
         }
 
@@ -106,14 +107,11 @@ class TeamFixtures extends Component {
 
     this.setState(
       {
-        matches: {
-          scheduled: scheduledArray,
-          finished: finishedArray
-        },
-        count: {
-          scheduled: scheduledArray.length,
-          finished: finishedArray.length,
-        },
+        ...this.state,
+        scheduledMatches: scheduledArray,
+        finishedMatches: finishedArray,
+        scheduledCount: scheduledArray.length,
+        finishedCount: finishedArray.length,
       }
     );
   };
@@ -134,7 +132,7 @@ class TeamFixtures extends Component {
   };
 
   renderFutureFixtures = () => {
-    const { matches: { scheduled } } = this.state;
+    const { scheduledMatches, scheduledCount, scheduledPage, scheduledRowsPerPage } = this.state;
 
     return (
       <ListItem>
@@ -148,9 +146,17 @@ class TeamFixtures extends Component {
             <Table>
               { this.renderHead() }
               <TableBody>
-                { scheduled }
+                { scheduledMatches.slice(scheduledPage * scheduledRowsPerPage, scheduledPage * scheduledRowsPerPage + scheduledRowsPerPage) }
               </TableBody>
             </Table>
+            <TableFooter>
+              <TablePagination count={ scheduledCount }
+                               onChangePage={ this.handleScheduledChangePage }
+                               page={ scheduledPage }
+                               rowsPerPage={ this.state.scheduledRowsPerPage }
+                               onChangeRowsPerPage={ this.handleScheduledChangeRowsPerPage }
+              />
+            </TableFooter>
           </Grid>
         </Grid>
       </ListItem>
@@ -158,23 +164,31 @@ class TeamFixtures extends Component {
   };
 
   renderPastFixtures = () => {
-    const { matches: { finished } } = this.state;
+    const { finishedMatches, finishedCount, finishedPage, finishedRowsPerPage } = this.state;
 
     return (
       <ListItem divider>
         <Grid container>
-          <Grid container item xs={ 3 } justify={ 'center' }>
+          <Grid container item xs={ 2 } justify={ 'center' }>
             <Typography variant={ 'title' }>
               Past Fixtures
             </Typography>
           </Grid>
-          <Grid container item xs={ 9 } justify={ 'center' }>
+          <Grid container item xs={ 10 } justify={ 'center' }>
             <Table>
               { this.renderHead() }
               <TableBody>
-                { finished }
+                { finishedMatches.slice(finishedPage * finishedRowsPerPage, finishedPage * finishedRowsPerPage + finishedRowsPerPage) }
               </TableBody>
             </Table>
+            <TableFooter>
+              <TablePagination count={ finishedCount }
+                               onChangePage={ this.handleFinishedChangePage }
+                               page={ finishedPage }
+                               rowsPerPage={ this.state.finishedRowsPerPage }
+                               onChangeRowsPerPage={ this.handleFinishedChangeRowsPerPage }
+              />
+            </TableFooter>
           </Grid>
         </Grid>
       </ListItem>
@@ -188,6 +202,22 @@ class TeamFixtures extends Component {
         { this.renderFutureFixtures() }
       </List>
     );
+  };
+
+  handleFinishedChangePage = (event, page) => {
+    this.setState({ ...this.state, finishedPage: page });
+  };
+
+  handleScheduledChangePage = (event, page) => {
+    this.setState({ ...this.state, scheduledPage: page });
+  };
+
+  handleFinishedChangeRowsPerPage = event => {
+    this.setState({ finishedRowsPerPage: event.target.value });
+  };
+
+  handleScheduledChangeRowsPerPage = event => {
+    this.setState({ scheduledRowsPerPage: event.target.value });
   };
 
   tablePaginationActions = () => {
@@ -246,8 +276,8 @@ class TeamFixtures extends Component {
     );
   };
 
-  renderFooter = () => {
-    const { page, rowsPerPage, count } = this.state;
+  renderFooter = (page, count) => {
+    const { rowsPerPage } = this.state;
 
     const handleChangePage = (event, page) => {
       this.setState({ page });
