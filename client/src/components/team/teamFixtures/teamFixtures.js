@@ -133,20 +133,26 @@ class TeamFixtures extends Component {
 
   renderFutureFixtures = () => {
     const { scheduledMatches, scheduledCount, scheduledPage, scheduledRowsPerPage } = this.state;
+    const emptyRows = scheduledRowsPerPage - Math.min(scheduledRowsPerPage, scheduledMatches.length - scheduledPage * scheduledRowsPerPage);
 
     return (
       <ListItem>
         <Grid container>
-          <Grid container item xs={ 3 } justify={ 'center' }>
+          <Grid container item xs={ 12 } justify={ 'center' }>
             <Typography variant={ 'title' }>
               Future Fixtures
             </Typography>
           </Grid>
-          <Grid container item xs={ 9 } justify={ 'center' }>
-            <Table>
+          <Grid container item xs={ 12 } justify={ 'center' }>
+            <Table fixedHeader={ false } style={ { tableLayout: "auto" } }>
               { this.renderHead() }
               <TableBody>
                 { scheduledMatches.slice(scheduledPage * scheduledRowsPerPage, scheduledPage * scheduledRowsPerPage + scheduledRowsPerPage) }
+                { emptyRows > 0 && (
+                  <TableRow style={ { height: 48 * emptyRows } }>
+                    <TableCell colSpan={ 6 } />
+                  </TableRow>
+                ) }
               </TableBody>
             </Table>
             <TableFooter>
@@ -165,20 +171,26 @@ class TeamFixtures extends Component {
 
   renderPastFixtures = () => {
     const { finishedMatches, finishedCount, finishedPage, finishedRowsPerPage } = this.state;
+    const emptyRows = finishedRowsPerPage - Math.min(finishedRowsPerPage, finishedMatches.length - finishedPage * finishedRowsPerPage);
 
     return (
       <ListItem divider>
         <Grid container>
-          <Grid container item xs={ 2 } justify={ 'center' }>
+          <Grid container item xs={ 12 } justify={ 'center' }>
             <Typography variant={ 'title' }>
               Past Fixtures
             </Typography>
           </Grid>
-          <Grid container item xs={ 10 } justify={ 'center' }>
+          <Grid container item xs={ 12 } justify={ 'center' }>
             <Table>
               { this.renderHead() }
               <TableBody>
                 { finishedMatches.slice(finishedPage * finishedRowsPerPage, finishedPage * finishedRowsPerPage + finishedRowsPerPage) }
+                { emptyRows > 0 && (
+                  <TableRow style={ { height: 48 * emptyRows } }>
+                    <TableCell colSpan={ 6 } />
+                  </TableRow>
+                ) }
               </TableBody>
             </Table>
             <TableFooter>
